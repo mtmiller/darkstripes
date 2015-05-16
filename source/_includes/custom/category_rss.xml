@@ -1,0 +1,24 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>{{ page.title | cdata_escape }}</title>
+  <link>{{ site.url }}/</link>
+  <atom:link href="{{ site.url }}/{{ page.feed_url }}" rel="self" type="application/rss+xml" />
+  <description />
+  <lastBuildDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</lastBuildDate>
+  <generator>Octopress</generator>
+  {% for post in site.categories[page.category] limit: 20 %}
+  <item>
+    <title>{% if site.titlecase %}{{ post.title | titlecase | cdata_escape }}{% else %}{{ post.title | cdata_escape }}{% endif %}</title>
+    <link>{{ site.url }}{{ post.url }}</link>
+    <guid isPermaLink="false">{{ site.url }}{{ post.id }}</guid>
+    <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+    <atom:updated>{{ post.date | date_to_xmlschema }}</atom:updated>
+    <description>{{ post.content | expand_urls: site.url | markdownify | escape }}</description>
+  </item>
+  {% endfor %}
+</channel>
+</rss>
